@@ -3,88 +3,111 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Home - Pranavi Paudel</title>
+  <title>Home – Pranavi Paudel</title>
   <link rel="shortcut icon" href="fab.png" type="image/x-icon" />
   <link rel="stylesheet" href="style.css" />
   <script src="https://kit.fontawesome.com/3977f7c6e0.js" crossorigin="anonymous" defer></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
   <script defer src="ext.js"></script>
 </head>
 <body>
-  <div id="vanta-bg">
-    <!-- Nav -->
-    <nav class="nav">
-      <div class="home">
-        <a href="index.html"><i class="fa-solid fa-house"></i></a>
-      </div>
-      <div class="rest">
-	<a href="Pranavi.html">Profile</a>
-        <i class="fa-brands fa-instagram" id="insta-btn"></i>
-        <i class="fa-brands fa-linkedin" id="linkedin-btn"></i>
-        <i class="fa-solid fa-envelope" id="email-btn"></i>
-        
-      </div>
-    </nav>
 
-    <main class="main-container">
-      <!-- Hero / Intro Section -->
-      <section class="hero-section">
-        <h1>Hi, I’m Pranavi Paudel</h1>
-        <p style="color: beige;">Bio-Medical Engineer & Innovator passionate about Medicine, design and technology.</p>
-        <a href="Pranavi.html" class="btn">View Profile</a>
-      </section>
+  <div class="page-accent"></div>
 
-      <!-- About Me -->
-      <section class="main">
-        <h2 class="section-title">About Me</h2>
-        <div class="education-wrapper about-wrapper">
-          <p>
-            I'm  a Junior in Mechanical and Biomedical Engineering senior at Mississippi State University with a 4.0 GPA. Currently working as an Engineering Assistant at CAVS, designing ventricular shunt catheters using CFD and FEA. I'm passionate about medical devices, mechatronics, and biomedical research, and I'm seeking internship and co-op opportunities to apply my skills in CAD, simulation, electronics, and additive manufacturing.
-        </div>
-      </section>
-
-      <!-- Contact -->
-      <section class="main">
-        <h2 class="section-title">Contact</h2>
-        <div class="education-wrapper contact-wrapper">
-          <ul class="contact-list">
-            <li>
-              <i class="fa-brands fa-instagram"></i>
-              <a href="https://instagram.com/pranavipaudel" target="_blank" rel="noopener noreferrer">Instagram</a>
-            </li>
-            <li>
-              <i class="fa-brands fa-linkedin"></i>
-              <a href="https://linkedin.com/in/pranavi-paudel" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn</a>
-            </li>
-            <li>
-              <i class="fa-solid fa-envelope"></i>
-              <a href="mailto:pp892@msstate.edu">Email</a>
-            </li>
-          </ul>
-        </div>
-      </section>
-    </main>
-
-    <footer class="foo" style="bottom:0%">
-    <div class="side1">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="Pranavi.html">Profile</a></li>
-        </ul>
+  <nav class="nav">
+    <div class="home">
+      <a href="index.html" aria-label="Home"><i class="fa-solid fa-house"></i></a>
     </div>
-    <div class="side2" >
-        <i class="fa-brands fa-instagram" id="insta-btn-footer"></i>
-        <i class="fa-brands fa-linkedin" id="linkedin-btn-footer"></i>
-        <i class="fa-solid fa-envelope" id="email-btn-footer"></i>
+    <div class="rest">
+      <a href="Pranavi.html">Profile</a>
+      <i class="fa-brands fa-instagram" id="insta-btn" title="Instagram"></i>
+      <i class="fa-brands fa-linkedin" id="linkedin-btn" title="LinkedIn"></i>
+      <i class="fa-solid fa-envelope" id="email-btn" title="Email"></i>
+    </div>
+  </nav>
+
+  <div class="main-container">
+
+    <section class="hero-section">
+      <div class="hero-text">
+        <div class="nepal-badge">
+          <div class="np-monogram">NP</div>
+        </div>
+        <h1>Hi, I'm<br><em>Pranavi Paudel</em></h1>
+        <p class="hero-tagline">
+          Mechanical and Biomedical Engineer driven by product development, from simulation-heavy design work to precision mechanical design and systems.
+        </p>
+        <a href="Pranavi.html" class="btn">View My Profile</a>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <!-- Replace "pranavi.jpg" with your actual photo filename -->
+        <img class="hero-photo" src="pranu.JPEG" alt="Pranavi Paudel" />
+      </div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-wrapper">
+        <p>
+          Junior in Mechanical and Biomedical Engineering at Mississippi State University with a 4.0 GPA.
+          My work spans CAD modeling, FEA and CFD simulation, and hands-on product development,
+          currently applied to medical device design at CAVS. I am seeking co-op
+          opportunities in mechanical design, robotics, and product development where I can apply
+          my skills in solidWorks, simulation, and manufacturing to build things that work better in the real world.
+        </p>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <h2 class="section-title">Contact</h2>
+      <div class="contact-wrapper">
+        <ul class="contact-list">
+          <li>
+            <i class="fa-brands fa-instagram"></i>
+            <a href="https://instagram.com/pranavipaudel" target="_blank" rel="noopener">@pranavipaudel</a>
+          </li>
+          <li>
+            <i class="fa-brands fa-linkedin"></i>
+            <a href="https://linkedin.com/in/pranavi-paudel" target="_blank" rel="noopener">Connect on LinkedIn</a>
+          </li>
+          <li>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:pp892@msstate.edu">pp892@msstate.edu</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="wave-divider">
+    <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <path d="M0,35 C240,70 480,0 720,35 C960,70 1200,0 1440,35 L1440,70 L0,70 Z" fill="#5e2840" opacity="0.92"/>
+    </svg>
+  </div>
+
+  <footer class="foo">
+    <div class="side1">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Pranavi.html">Profile</a></li>
+      </ul>
+    </div>
+    <div class="side2">
+      <i class="fa-brands fa-instagram" id="insta-btn-footer"></i>
+      <i class="fa-brands fa-linkedin" id="linkedin-btn-footer"></i>
+      <i class="fa-solid fa-envelope" id="email-btn-footer"></i>
     </div>
     <div class="side0">
-        &copy; 2025 Pranavi Paudel. All Rights Reserved.
+      &copy; 2026 Pranavi Paudel. All Rights Reserved.
     </div>
-</footer>
+  </footer>
+
+  <!-- Lightbox overlay -->
+  <div class="lightbox-overlay" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <img id="lightbox-img" src="" alt="" />
   </div>
+
 </body>
 </html>
-
-
