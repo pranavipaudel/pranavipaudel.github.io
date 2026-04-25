@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrainWatch - Smart Jackson-Pratt Drain Monitoring System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #ffeef8 0%, #fff5e1 50%, #f0f9ff 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #d4a5d9 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(255, 107, 157, 0.3);
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        nav {
+            background-color: #333;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            transition: background-color 0.3s;
+        }
+        
+        nav a:hover {
+            background-color: #ff6b9d;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        section {
+            background: white;
+            margin: 30px 0;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #ff6b9d;
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #ff6b9d;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #c44569;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .intro-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .gallery-item {
+            border: 2px solid #ff6b9d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(255, 107, 157, 0.2);
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(255, 107, 157, 0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .gallery-caption {
+            padding: 15px;
+            background: white;
+        }
+        
+        .gallery-caption strong {
+            color: #ff6b9d;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .highlight-box {
+            background-color: #fff0f7;
+            border-left: 4px solid #ff6b9d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .spec-card {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(255, 107, 157, 0.2);
+        }
+        
+        .spec-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .code-block {
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            line-height: 1.6;
+        }
+        
+        .code-block pre {
+            margin: 0;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .data-table th {
+            background-color: #ff6b9d;
+            color: white;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            clear: both;
+            width: 100%;
+            grid-column: 1 / -1;
+        }
+        
+        .circuit-diagram {
+            background: white;
+            padding: 20px;
+            border: 2px solid #ff6b9d;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .timeline-item {
+            padding: 20px;
+            border-left: 4px solid #ff6b9d;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item h4 {
+            color: #ff6b9d;
+            margin-bottom: 8px;
+        }
+        
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        a {
+            color: #ff6b9d;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        
+        footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DrainWatch</h1>
+        <p>Smart Jackson-Pratt Drain Monitoring System</p>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#motivation">Motivation</a></li>
+            <li><a href="#design">Design</a></li>
+            <li><a href="#hardware">Hardware</a></li>
+            <li><a href="#code">Code</a></li>
+            <li><a href="#calibration">Calibration</a></li>
+            <li><a href="#graphs">Graphs</a></li>
+            <li><a href="#results">Results</a></li>
+            <li><a href="#hardware-images">Images</a></li>
+            <li><a href="#media">Media</a></li>
+            <li><a href="#limitations">Limitations</a></li>
+            <li><a href="#future">Future Work</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <!-- Overview Section -->
+        <section id="overview">
+            <h2>Project Overview</h2>
+            <p class="intro-text">
+                DrainWatch is an innovative wearable system designed to monitor the fluid output from Jackson-Pratt surgical drains in real-time. Using a 5kg load cell sensor integrated into a wearable belt, the system provides automated tracking of drain volume, sends alerts when the drain reaches 100cc, and eliminates the need for manual, error-prone monitoring by patients and healthcare providers.
+            </p>
+            
+            <h3>Project Goal</h3>
+            <p>
+                Transform post-operative patient care by providing clinicians and patients with real-time, objective data on wound drainage, reducing infection risk and improving recovery outcomes.
+            </p>
+        </section>
+        
+        <!-- Motivation Section -->
+        <section id="motivation">
+            <h2>Clinical Motivation</h2>
+            
+            <h3>The Jackson-Pratt Drain Challenge</h3>
+            <p>
+                Jackson-Pratt drains are the gold standard for post-operative fluid management following surgeries like mastectomies, abdominoplasties, and liposuction. However, current clinical practice relies on patients to manually empty, measure, and record drain output multiple times daily—a process prone to error, inconsistency, and patient burden.
+            </p>
+            
+            <h3>Clinical Impact</h3>
+            <p>
+                Accurate drain monitoring is critical for clinical decision-making. Drain removal timing is typically based on output thresholds (commonly 30-50cc per day), and delayed removal increases infection risk while premature removal compromises wound healing. Current manual methods make it difficult to track trends or detect anomalies in real time.
+            </p>
+        </section>
+        
+        <!-- Jackson-Pratt Clinical Context -->
+        <section id="clinical-context">
+            <h2>Jackson-Pratt Drain: Clinical Context</h2>
+            <p>The Jackson-Pratt drain is the gold standard for post-operative fluid management. Understanding its design and clinical application motivated our project.</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="jackson_pratt_drain_anatomy.jpg" alt="JP Drain Anatomy">
+                    <div class="gallery-caption">
+                        <strong>Jackson-Pratt Drain Structure:</strong> Consists of a flexible silicone tube connected to a compressible reservoir bulb that provides gentle negative pressure for fluid evacuation.
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="prospective_placement.jpg" alt="Postoperative Placement">
+                    <div class="gallery-caption">
+                        <strong>Clinical Placement:</strong> JP drains are typically placed near surgical incisions to evacuate wound fluid. The bulb is secured with tape, creating patient discomfort and limiting mobility.
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="manual_tracking.webp" alt="Manual Volume Tracking">
+                    <div class="gallery-caption">
+                        <strong>Patient Burden:</strong> Current clinical practice requires patients to manually empty, measure, and record drain output—a process prone to error and inconsistency.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Design Section -->
+        <section id="design">
+            <h2>System Design & Sensor Selection</h2>
+            
+            <h3>Design Methodology</h3>
+            <p>
+                DrainWatch employs a non contact sensing approach to maintain sterility and safety throughout clinical use. Rather than placing sensors within the drain system, the system measures fluid weight accumulated in the bulb using a precision load cell. The load cell is mounted beneath a molded holster that securely accommodates the drain bulb assembly.
+            </p>
+            
+            <h3>Sensor Selection Rationale</h3>
+            <p>A 5kg load cell was selected as the primary sensing element based on the following criteria:</p>
+            <ul>
+                <li>Provides clinically meaningful data (fluid volume estimation)</li>
+                <li>Non-contact with bodily fluid - maintains sterility and safety</li>
+                <li>Low cost and high reliability within the project budget</li>
+                <li>Integrates seamlessly with the belt holster design</li>
+                <li>Achievable within project timeline</li>
+                <li>Supports key clinical decision: when to empty the drain</li>
+            </ul>
+            
+            <h3>Potential Sensor Enhancements</h3>
+            <p>Should additional funding become available following project completion, the following sensor enhancements may be explored:</p>
+            <ul>
+                <li><strong>Pressure Sensor:</strong> Monitor suction loss to detect when drain stops functioning properly</li>
+                <li><strong>Temperature Sensor:</strong> Provide indirect infection indication through local temperature monitoring</li>
+            </ul>
+            <p>These additional sensors would enhance the system's capabilities but require more complex integration and regulatory considerations.</p>
+        </section>
+        
+        <!-- Hardware Section -->
+        <section id="hardware">
+            <h2>Hardware Components & Wiring</h2>
+            
+            <h3>Key Components</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                <div class="spec-card">
+                    <h4>Arduino Uno</h4>
+                    <p>Microcontroller for sensor processing and OLED display control</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h4>Load Cell</h4>
+                    <p><strong>5kg Digital Scale Load Cell</strong><br>Mounted beneath the bulb holster to measure fluid weight as it accumulates</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h4>HX711 Amplifier</h4>
+                    <p>Analog-to-digital converter for load cell signal conditioning</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h4>SSD1306 OLED Display</h4>
+                    <p>128x64 pixel display showing real-time weight, volume, and elapsed time</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h4>Vibrating Motor</h4>
+                    <p>Adafruit Mini Disc Motor (Product 1201) for haptic alert at 100cc threshold</p>
+                </div>
+                
+                <div class="spec-card">
+                    <h4>Momentary Push Button</h4>
+                    <p>H10 button for tare (zeroing) the load cell between measurements</p>
+                </div>
+            </div>
+            
+            <h3>Wiring Connections</h3>
+            <ul>
+                <li><strong>HX711 Load Cell Amplifier:</strong> DOUT → Pin 2, SCK → Pin 3, VCC → 5V, GND → GND</li>
+                <li><strong>SSD1306 OLED (I2C):</strong> SDA → A4, SCL → A5, VCC → 5V, GND → GND, Address 0x3C</li>
+                <li><strong>H10 Push Button (Tare):</strong> Pin 1 → Arduino Pin 4, Pin 2 → GND (uses INPUT_PULLUP)</li>
+                <li><strong>Vibrating Motor:</strong> Red wire → 3.3V, Blue wire → Pin 6 (Active Low)</li>
+            </ul>
+        </section>
+        
+        <!-- Code Section -->
+        <section id="code">
+            <h2>Arduino Firmware</h2>
+            <p>The firmware integrates all sensors and provides real-time monitoring with visual and haptic feedback.</p>
+            
+            <div class="code-block"><pre>#include "HX711.h"
+#include &lt;Wire.h&gt;
+#include &lt;Adafruit_GFX.h&gt;
+#include &lt;Adafruit_SSD1306.h&gt;
+
+// HX711 circuit wiring
+const int LOADCELL_DOUT_PIN = 2;
+const int LOADCELL_SCK_PIN = 3;
+const int BUZZER_PIN = 6;
+
+HX711 scale;
+float reading;
+float lastReading = 0;
+#define CALIBRATION_FACTOR -420.457
+
+// Threshold for 100cc alert
+const float VOLUME_THRESHOLD_CC = 100;
+const float WEIGHT_THRESHOLD_G = VOLUME_THRESHOLD_CC * 1.0;
+
+// OLED display
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Tare button
+#define BUTTON_PIN 4
+int buttonState = 0;
+int lastButtonState = 0;
+unsigned long lastDebounceTime = 0;
+unsigned long debounceDelay = 50;
+unsigned long startTime = 0;
+bool experimentRunning = false;
+
+void displayWeight(float weight, float volume, unsigned long elapsedTime) {
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  
+  display.setCursor(0, 0);
+  display.println("Weight:");
+  display.setTextSize(2);
+  display.print(weight, 1);
+  display.print("g");
+  
+  display.setTextSize(1);
+  display.setCursor(0, 25);
+  display.println("Volume:");
+  display.setTextSize(2);
+  display.print(volume, 1);
+  display.print("cc");
+  
+  display.setTextSize(1);
+  display.setCursor(0, 50);
+  display.print("Time: ");
+  display.print(elapsedTime / 1000);
+  display.println("s");
+  
+  if (weight &gt; WEIGHT_THRESHOLD_G) {
+    display.setTextSize(1);
+    display.setCursor(0, 62);
+    display.println("*** 100cc REACHED ***");
+  }
+  
+  display.display();
+}
+
+void setup() {
+  Serial.begin(57200);
+  
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(BUZZER_PIN, HIGH);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { 
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+  
+  delay(2000);
+  display.clearDisplay();
+  display.setTextColor(WHITE);
+  
+  Serial.println("Initializing the scale");
+  scale.begin(LOADCELL_DOUT_PIN, LOADCELL_SCK_PIN);
+  scale.set_scale(CALIBRATION_FACTOR);
+  scale.tare();
+  
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(10, 25);
+  display.println("Press button to start");
+  display.display();
+  
+  Serial.println("Time(ms),Weight(g),Volume(cc)");
+}
+
+void loop() {
+  int reading = digitalRead(BUTTON_PIN);
+  
+  if (reading != lastButtonState) {
+    lastDebounceTime = millis();
+  }
+  
+  if ((millis() - lastDebounceTime) &gt; debounceDelay) {
+    if (reading != buttonState) {
+      buttonState = reading;
+      
+      if (buttonState == LOW) {
+        if (!experimentRunning) {
+          Serial.println("--- EXPERIMENT STARTED ---");
+          scale.tare();
+          startTime = millis();
+          experimentRunning = true;
+          digitalWrite(BUZZER_PIN, HIGH);
+        } else {
+          Serial.println("--- EXPERIMENT STOPPED ---");
+          experimentRunning = false;
+          digitalWrite(BUZZER_PIN, HIGH);
+        }
+        delay(500);
+      }
+    }
+  }
+  
+  lastButtonState = reading;
+  
+  if (scale.wait_ready_timeout(200)) {
+    reading = scale.get_units();
+    
+    if (experimentRunning) {
+      unsigned long elapsedTime = millis() - startTime;
+      float volumeCC = reading * 1.0;
+      
+      if (elapsedTime % 1000 &lt; 200) {
+        Serial.print(elapsedTime);
+        Serial.print(",");
+        Serial.print(reading);
+        Serial.print(",");
+        Serial.println(volumeCC);
+      }
+      
+      displayWeight(reading, volumeCC, elapsedTime);
+      
+      if (reading &gt; WEIGHT_THRESHOLD_G) {
+        digitalWrite(BUZZER_PIN, LOW);
+      } else {
+        digitalWrite(BUZZER_PIN, HIGH);
+      }
+    }
+  }
+  
+  delay(200);
+}</pre></div>
+        </section>
+        
+        <!-- Calibration Section -->
+        <section id="calibration">
+            <h2>Load Cell Calibration</h2>
+            
+            <h3>Calibration Process</h3>
+            <p>To accurately convert raw HX711 readings to weight values, we calibrated the 5kg load cell using a known reference weight. The calibration factor is determined by the ratio of load cell output to applied weight.</p>
+            
+            <h3>Calibration Data & Calculations</h3>
+            <div class="highlight-box">
+                <p><strong>Calibration Factor Calculation:</strong></p>
+                <p>The calibration factor of <strong>-420.457</strong> was determined using the following method:</p>
+                <ul>
+                    <li>Place a known weight (e.g., 100g) on the load cell</li>
+                    <li>Record the raw ADC reading from HX711</li>
+                    <li>Calculate: Calibration Factor = Raw Reading / Weight (grams)</li>
+                    <li>Used multiple reference weights to average and verify accuracy</li>
+                </ul>
+                <p><strong>Formula:</strong> Weight(g) = Raw ADC Count / Calibration Factor</p>
+            </div>
+            
+            <div class="success">
+                <strong>✓ Calibration Verified:</strong> Average error less than 0.5%, confirming the load cell is accurately calibrated for weight measurement.
+            </div>
+        </section>
+        
+        <!-- Graphs Section -->
+        <section id="graphs">
+            <h2>Experimental Data & Analysis</h2>
+            
+            <h3>Excel Data Analysis</h3>
+            <p>Complete experimental data was collected and analyzed in Excel, including calibration verification, weight-to-volume conversion, and temporal analysis of fluid accumulation.</p>
+            
+            <div class="highlight-box">
+                <p><strong>Complete Data Analysis:</strong> All raw data, calculations, and graphs are documented in the Excel workbook: <strong>Jackson_Pratt_Data.xlsx</strong></p>
+            </div>
+            
+            <h3>Key Graphs Generated</h3>
+            <p>Two primary analyses were performed on the experimental data:</p>
+            
+            <h4>Analysis Charts</h4>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="1777004485506_image.png" alt="Weight vs Volume Graph">
+                    <div class="gallery-caption">
+                        <strong>Weight vs Volume Relationship:</strong> Linear calibration showing perfect correlation (R² = 1.00) between fluid weight and volume
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="1777005524754_image.png" alt="Time vs Volume Graph">
+                    <div class="gallery-caption">
+                        <strong>Drainage Volume Over Time:</strong> Temporal analysis showing steady fluid accumulation during 72-second test period
+                    </div>
+                </div>
+            </div>
+            
+            <div class="success">
+                <strong>✓ Data Validation:</strong> Excel analysis confirms both calibration accuracy and the system's capability to provide meaningful real-time drainage monitoring.
+            </div>
+            </section>
+        
+        <!-- Results Section -->
+        <section id="results">
+            <h2>Experimental Results</h2>
+            
+            <h3>Experimental Protocol</h3>
+            <p>
+                A proof of concept test was conducted to validate system functionality. Water was introduced into the JP bulb mounted on the load cell to simulate post operative fluid accumulation. The system successfully tracked volume accumulation in real time and activated the alert mechanism at the predetermined threshold.
+            </p>
+            
+            <h3>Performance Results</h3>
+            <ul>
+                <li><strong>Total Duration:</strong> 72 seconds to reach 100cc</li>
+                <li><strong>Average Flow Rate:</strong> ~1.4 cc/second (clinically realistic)</li>
+                <li><strong>Alert Accuracy:</strong> Buzzer triggered precisely at 100g/100cc threshold</li>
+                <li><strong>Display Responsiveness:</strong> Real-time updates every 200ms with 1-decimal precision</li>
+                <li><strong>Data Logging:</strong> Complete time-stamped CSV output for offline analysis</li>
+            </ul>
+        </section>
+        
+        <!-- Hardware Images Section -->
+        <section id="hardware-images">
+            <h2>Hardware Assembly & Prototype</h2>
+            <p>Below are photos documenting the development, assembly, and testing of the DrainWatch prototype.</p>
+            
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="IMG_7865.jpeg" alt="Hardware Assembly 1">
+                    <div class="gallery-caption">
+                        <strong>Breadboard Circuit Setup:</strong> Initial prototyping with Arduino, load cell amplifier, and OLED display
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="IMG_7866.jpeg" alt="Hardware Assembly 2">
+                    <div class="gallery-caption">
+                        <strong>Load Cell Integration:</strong> 5kg load cell mounted with JP bulb holster for weight measurement
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="ba4cedca-baab-47c4-8714-8bcb0574db2c.jpg" alt="Testing Setup">
+                    <div class="gallery-caption">
+                        <strong>Experimental Testing:</strong> System in action during simulated fluid drainage test
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="46ec4eb1-eea4-404c-9e9d-a0107f880621.jpg" alt="Final Prototype">
+                    <div class="gallery-caption">
+                        <strong>Complete System:</strong> Integrated prototype ready for testing and data collection
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Poster & Video Section -->
+        <section id="media">
+            <h2>Project Presentation Materials</h2>
+            
+            <h3>Poster and Video Explanation</h3>
+            <p>Comprehensive presentation materials documenting the DrainWatch project are currently in preparation and will be available soon.</p>
+            
+            <div class="highlight-box" style="text-align: center; padding: 40px;">
+                <p style="font-size: 1.3em; color: #ff6b9d; margin-bottom: 15px;"><strong>Work in Progress</strong></p>
+                <p style="color: #666; font-style: italic;">Poster and video materials coming soon</p>
+            </div>
+        </section>
+        
+        <!-- Limitations Section -->
+        <section id="limitations">
+            <h2>System Limitations and Current Status</h2>
+            <ul>
+                <li><strong>Development Stage:</strong> The current implementation represents a laboratory prototype. Integration into a wearable form factor remains pending.</li>
+                <li><strong>Single Drain Capacity:</strong> Current configuration supports monitoring of one drain bulb. Many post operative patients require simultaneous management of multiple drains.</li>
+                <li><strong>Tare Control:</strong> Manual button activation is required for system zeroing. Automated taring at defined intervals could improve user experience.</li>
+                <li><strong>Data Management:</strong> Output is currently limited to serial communication. Onboard data logging capability for patient records would enhance clinical utility.</li>
+                <li><strong>Connectivity:</strong> System operates via wired connection. Wireless communication would improve patient mobility and comfort during recovery.</li>
+                <li><strong>Regulatory Status:</strong> Device is a prototype. Clinical implementation will require appropriate medical device classification and regulatory compliance.</li>
+            </ul>
+        </section>
+        
+        <!-- Future Work Section -->
+        <section id="future">
+            <h2>Future Development Pathways</h2>
+            
+            <h3>Near Term Development (Post Graduation with Additional Funding)</h3>
+            <ul>
+                <li><strong>Integrated Wearable System:</strong> Integration of components into functional wearable belt utilizing neoprene fabric and three dimensionally printed component housing</li>
+                <li><strong>Environmental Compensation:</strong> Temperature sensor integration to correct load cell output for ambient temperature variations</li>
+                <li><strong>Dual Drain Capability:</strong> System expansion to support simultaneous monitoring of multiple drainage bulbs, common in reconstructive surgical applications</li>
+                <li><strong>Local Data Storage:</strong> SD card integration for comprehensive time series data logging to support offline analysis and clinical record keeping</li>
+                <li><strong>Mobile Integration:</strong> Development of wireless communication interface for real time monitoring via mobile device applications</li>
+            </ul>
+            
+            <h3>Long Term Vision (3 to 5 Years Post Graduation)</h3>
+            <ul>
+                <li><strong>Regulatory Clearance:</strong> FDA classification and approval pathway for clinical use as a Class II medical device</li>
+                <li><strong>Healthcare System Integration:</strong> HIPAA compliant data transmission protocols for integration with electronic health record systems</li>
+                <li><strong>Advanced Analytics:</strong> Machine learning based pattern recognition for detection of infection indicators or drain dysfunction</li>
+                <li><strong>Clinical Integration:</strong> Automated alert systems for direct notification to surgical teams through hospital communication networks</li>
+                <li><strong>Clinical Validation:</strong> Prospective clinical studies in collaboration with healthcare institutions specializing in breast cancer and reconstructive surgery</li>
+            </ul>
+        </section>
+        
+        <!-- Team Section -->
+        <section id="team">
+            <h2>Project Team & Attribution</h2>
+            <p><strong>DrainWatch</strong> was developed as part of an engineering design project at Mississippi State University.</p>
+            
+            <h3>Team Members</h3>
+            <ul>
+                <li>Pranavi Paudel</li>
+                <li>Naima Bradley</li>
+                <li>Mikayla Jones</li>
+                <li>Anna Geter</li>
+            </ul>
+            
+            <h3>Contact Information</h3>
+            <p>For inquiries about this project, please contact Pranavi Paudel at pp892@msstate.edu</p>
+            
+            <h3>Acknowledgments</h3>
+            <p>We gratefully acknowledge Mississippi State University and the Department of Agricultural and Biological Engineering for providing essential funding and resources for this project. We extend our sincere thanks to Dr. Van Den Heever for his invaluable guidance, mentorship, and support throughout the development process. This project was also informed by the UMEEDD program and the UMMC and MSU engineering partnership, which contributed significantly to our initial design methodology.</p>
+            
+            <p>Additionally, we thank Laura Geter, RN, BSN (27 years nursing experience) for providing critical clinical feedback and insights on device design and patient needs.</p>
+            
+            <h3>References</h3>
+            <ul>
+                <li>Chen et al. (2016). Risk of infection is associated more with drain duration than daily drainage volume in prosthesis based breast reconstruction</li>
+                <li>Gadiraju et al. (2025). Understanding the impacts of surgical drains on postoperative pain and quality of life</li>
+            </ul>
+        </section>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2026 DrainWatch Project | Mississippi State University | Department of Agricultural and Biological Engineering</p>
+        <p>For project inquiries, contact pp892@msstate.edu</p>
+    </footer>
+</body>
+</html>
