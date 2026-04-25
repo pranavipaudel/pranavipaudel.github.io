@@ -257,6 +257,127 @@
         footer p {
             margin: 5px 0;
         }
+        
+        /* Lightbox styles for clickable images */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            padding: 20px;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 95%;
+            max-height: 95%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(255, 107, 157, 0.5);
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: color 0.3s;
+        }
+        
+        .lightbox-close:hover {
+            color: #ff6b9d;
+        }
+        
+        .gallery-item img,
+        .clickable-img {
+            cursor: zoom-in;
+            transition: transform 0.3s;
+        }
+        
+        .gallery-item img:hover,
+        .clickable-img:hover {
+            transform: scale(1.02);
+        }
+        
+        /* Document download cards */
+        .document-card {
+            background: white;
+            border: 2px solid #ff6b9d;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .document-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(255, 107, 157, 0.3);
+        }
+        
+        .document-icon {
+            font-size: 3em;
+            color: #ff6b9d;
+            flex-shrink: 0;
+        }
+        
+        .document-info {
+            flex-grow: 1;
+        }
+        
+        .document-info h4 {
+            color: #c44569;
+            margin-bottom: 8px;
+            font-size: 1.2em;
+        }
+        
+        .document-info p {
+            color: #666;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+        
+        .document-button {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        
+        .document-button:hover {
+            transform: scale(1.05);
+            text-decoration: none;
+        }
+        
+        .access-note {
+            background-color: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 12px 15px;
+            margin-top: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -696,12 +817,43 @@ void loop() {
         <section id="media">
             <h2>Project Presentation Materials</h2>
             
-            <h3>Poster and Video Explanation</h3>
-            <p>Comprehensive presentation materials documenting the DrainWatch project are currently in preparation and will be available soon.</p>
+            <h3>Project Poster</h3>
+            <p>The final project poster summarizes our research, design, and findings.</p>
             
-            <div class="highlight-box" style="text-align: center; padding: 40px;">
-                <p style="font-size: 1.3em; color: #ff6b9d; margin-bottom: 15px;"><strong>Work in Progress</strong></p>
-                <p style="color: #666; font-style: italic;">Poster and video materials coming soon</p>
+            <div class="gallery" style="grid-template-columns: 1fr; max-width: 900px; margin: 20px auto;">
+                <div class="gallery-item">
+                    <img src="poster.png" alt="DrainWatch Final Poster" style="height: auto; max-height: 700px;">
+                    <div class="gallery-caption">
+                        <strong>DrainWatch Final Poster:</strong> Click to enlarge and view the full project poster
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Video Explanation</h3>
+            <p>A detailed video walkthrough of the DrainWatch project is currently in development.</p>
+            
+            <div class="gallery" style="grid-template-columns: 1fr; max-width: 600px; margin: 20px auto;">
+                <div class="gallery-item">
+                    <img src="wip.avif" alt="Video Coming Soon - Work in Progress" style="height: auto;">
+                    <div class="gallery-caption">
+                        <strong>Video Walkthrough:</strong> Coming soon
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Project Report</h3>
+            <p>The complete technical report documenting the project's research, methodology, and outcomes is available for review.</p>
+            
+            <div class="document-card">
+                <div class="document-icon">📄</div>
+                <div class="document-info">
+                    <h4>DrainWatch Final Report</h4>
+                    <p>Comprehensive documentation including literature review, design methodology, concept evaluation, and final design specifications.</p>
+                    <a href="DrainWatch_Final_Report.pdf" target="_blank" class="document-button">View Report</a>
+                    <div class="access-note">
+                        <strong>Access Information:</strong> To request access to the project report, please contact Pranavi Paudel at pp892@msstate.edu or pranavipaudel@gmail.com
+                    </div>
+                </div>
             </div>
         </section>
         
@@ -758,9 +910,7 @@ void loop() {
             <p>For inquiries about this project, please contact Pranavi Paudel at pp892@msstate.edu</p>
             
             <h3>Acknowledgments</h3>
-            <p>We gratefully acknowledge Mississippi State University and the Department of Agricultural and Biological Engineering for providing essential funding and resources for this project. We extend our sincere thanks to Dr. Van Den Heever for his invaluable guidance, mentorship, and support throughout the development process. This project was also informed by the UMEEDD program and the UMMC and MSU engineering partnership, which contributed significantly to our initial design methodology.</p>
-            
-            <p>Additionally, we thank Laura Geter, RN, BSN (27 years nursing experience) for providing critical clinical feedback and insights on device design and patient needs.</p>
+            <p>We acknowledge Mississippi State University, the Department of Agricultural and Biological Engineering, and the UMEEDD program for their support. We thank Dr. Van Den Heever for guidance and mentorship, and Laura Geter, RN, BSN, for valuable clinical insights. We also appreciate our friends Spandan, Nischal, and Pritam for assistance with electronics, code debugging, and providing electronic components at a critical time.</p>
             
             <h3>References</h3>
             <ul>
@@ -774,5 +924,39 @@ void loop() {
         <p>&copy; 2026 DrainWatch Project | Mississippi State University | Department of Agricultural and Biological Engineering</p>
         <p>For project inquiries, contact pp892@msstate.edu</p>
     </footer>
+    <!-- Lightbox for image enlargement -->
+    <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Enlarged view">
+    </div>
+    
+    <script>
+        // Lightbox functionality - makes all images clickable to enlarge
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryImages = document.querySelectorAll('.gallery-item img, .clickable-img');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    lightboxImg.src = this.src;
+                    lightboxImg.alt = this.alt;
+                    lightbox.classList.add('active');
+                });
+            });
+            
+            // Close on Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                }
+            });
+        });
+        
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
 </body>
 </html>
