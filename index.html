@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Pranavi Paudel · Mechanical & Biomedical Engineer</title>
+  <meta name="description" content="Pranavi Paudel: Mechanical & Biomedical Engineering student at Mississippi State University. Walk around her pixel farm to explore projects, experience, skills and certifications.">
+  <meta name="theme-color" content="#6e4423">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pranavi Paudel · Mechanical & Biomedical Engineer">
+  <meta property="og:description" content="A cozy pixel-farm portfolio: medical devices, CAD & CFD, manufacturing, and a few hidden golden acorns.">
+  <meta property="og:image" content="pranu.JPEG">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="fonts/pixelify-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/farm.css">
+</head>
+<body>
+  <!-- The farm -->
+  <div id="app">
+    <canvas id="world" aria-hidden="true"></canvas>
+    <div id="world-labels"></div>
+  </div>
+
+  <!-- Title screen -->
+  <div id="title">
+    <canvas id="title-canvas" aria-hidden="true"></canvas>
+    <div class="title-card">
+      <div class="title-sign title-ropes">
+        <div class="board">
+          <h1 class="title-name">PRANAVI<br>PAUDEL</h1>
+        </div>
+      </div>
+      <div class="title-sub">Mechanical & Biomedical Engineer · Mississippi State</div>
+      <div class="title-actions">
+        <button class="btn green lg" id="enter-btn">Enter the farm</button>
+        <button class="btn paper lg" id="title-quick">Quick view</button>
+        <button class="btn wood" id="title-sound">Sound off</button>
+      </div>
+      <div><span class="hud-box title-tip" id="title-tip"></span></div>
+    </div>
+    <div class="title-foot"><span class="press-start">Press Enter to start</span></div>
+  </div>
+
+  <div id="panel-root"></div>
+  <div id="quick" hidden></div>
+  <div id="toasts"></div>
+
+  <noscript>
+    <div style="position:fixed;inset:0;z-index:999;overflow:auto;background:#f4ead6;color:#2f2117;font:16px/1.6 system-ui,sans-serif;padding:32px">
+      <h1>Pranavi Paudel</h1>
+      <p><b>Mechanical &amp; Biomedical Engineer</b> · Mississippi State University · GPA 4.0 · Graduating May 2027</p>
+      <p>This portfolio is a small game and needs JavaScript. You can still reach me at <a href="mailto:pp892@msstate.edu">pp892@msstate.edu</a>, on <a href="https://www.linkedin.com/in/pranavi-paudel/">LinkedIn</a>, or read my résumé: <a href="PranaviPaudel_Resume_mbe.pdf">Mechanical &amp; Biomedical</a> · <a href="PranaviPaudel_Resume_me.pdf">Mechanical</a>.</p>
+      <p>Featured project: <a href="drainwatch_final.html">DrainWatch</a>, a sensor-integrated Jackson-Pratt drain support system.</p>
+    </div>
+  </noscript>
+
+  <script src="js/content.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/panels.js"></script>
+  <script src="js/world.js"></script>
+  <script src="js/road.js"></script>
+  <script src="js/sky.js"></script>
+  <script src="js/pigeon.js"></script>
+  <script src="js/title.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
