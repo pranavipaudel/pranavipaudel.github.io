@@ -163,7 +163,7 @@
     // --- bushes, rocks, flowers, stumps
     const deco = [
       ["bush", 214, 122], ["bush", 290, 118], ["bush", 448, 240], ["bush", 140, 290], ["bush", 330, 290], ["bush", 520, 208],
-      ["rock", 250, 196], ["rock", 430, 284], ["rock", 200, 360], ["rock", 540, 100], ["rock", 60, 260],
+      ["rock", 250, 196], ["rock", 430, 284], ["rock", 200, 360], ["rock", 504, 60], ["rock", 60, 260],
       ["stump", 330, 196], ["stump", 462, 116],
       ["flowers", 60, 200], ["flowers", 240, 120], ["flowers", 256, 290], ["flowers", 420, 196], ["flowers", 520, 60], ["flowers", 500, 290], ["flowers", 160, 260], ["flowers", 586, 80], ["flowers", 300, 250], ["flowers", 236, 220]
     ];
