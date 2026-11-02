@@ -113,13 +113,14 @@
     blockRect(2, 11, 7, 14);
     hot(gh, "hobbies", 80, 15 * T + 11, "up");
 
-    // --- cart + pony on the road
+    // --- cart + pony, parked between the farmhouse and the barn (Experience)
     world.ponyFrames = A.pony();
-    const cart = add(A.cartSide(3, 0.3, false), 25 * T + 2, 23 * T + 10);
-    const pony = add(world.ponyFrames[0], 25 * T + 2 + 44, 23 * T + 10, { pony: true });
-    blockRect(26, 22, 29, 23);
-    const cartHot = hot(cart, "experience", 24 * T + 4, 23 * T + 2, "right");
+    const cart = add(A.cartSide(3, 0.3, false), 14 * T + 6, 8 * T - 2);
+    const pony = add(world.ponyFrames[0], 14 * T + 6 + 44, 8 * T - 2, { pony: true });
+    blockRect(14, 6, 19, 7);
+    const cartHot = hot(cart, "experience", 14 * T + 6 + 40, 8 * T + 10, "up");
     cartHot.extraRect = [pony.x, pony.y, pony.w, pony.h];
+    // the old road still runs along the bottom of the farm, with its signpost
     add(A.signpost(S), 23 * T + 2, 22 * T - 1);
     blockRect(23, 21, 23, 21);
 
@@ -135,7 +136,7 @@
     add(A.scarecrow(S), 12 * T - 3, 13 * T + 4);
 
     // --- lamps
-    [[16, 7], [19, 17], [24, 19], [8, 17]].forEach(([x, y]) => { add(A.lamp(S), x * T + 2, (y + 1) * T - 2); blockRect(x, y, x, y); });
+    [[30, 21], [19, 17], [24, 19], [8, 17]].forEach(([x, y]) => { add(A.lamp(S), x * T + 2, (y + 1) * T - 2); blockRect(x, y, x, y); });
 
     // --- trees: forest border
     const rnd = F.rng(42);
@@ -154,7 +155,7 @@
     blockRect(0, 24, W - 1, 25);
     blockRect(0, 22, 0, 23); blockRect(37, 22, 37, 23);
     // inner trees
-    [[56, 60, "tree", 0], [90, 108, "tree", 1], [270, 64, "tree", 2], [302, 104, "pine", 0], [470, 168, "tree", 0], [520, 186, "pine", 1], [494, 232, "tree", 1], [548, 262, "tree", 2], [462, 300, "pine", 0], [560, 330, "tree", 0], [292, 300, "tree", 2], [232, 252, "pine", 1]].forEach(([x, y, k, v]) => tree(x, y, k, v));
+    [[56, 60, "tree", 0], [90, 108, "tree", 1], [270, 64, "tree", 2], [470, 168, "tree", 0], [520, 186, "pine", 1], [494, 232, "tree", 1], [548, 262, "tree", 2], [462, 300, "pine", 0], [560, 330, "tree", 0], [292, 300, "tree", 2], [232, 252, "pine", 1]].forEach(([x, y, k, v]) => tree(x, y, k, v));
     // the big old oak by the pond
     tree(11 * T + 8, 21 * T - 2, "big", 0);
     blockRect(11, 19, 12, 20);
@@ -621,7 +622,7 @@
       if (!h.el) return;
       const o = h.o;
       let ax = o.x + o.w / 2, ay = o.y + 2;
-      if (h.id === "experience") { ax = o.x + 40; ay = o.y + 4; }
+      if (h.id === "experience") { ax = o.x + 24; ay = o.y + 4; }
       if (h.id === "contact") ay = o.y - 2;
       h.el.style.transform = `translate(${Math.round((ax + ox) * scale)}px, ${Math.round((ay + oy) * scale)}px) translate(-50%, -100%)`;
       h.el.classList.toggle("near", nearId === h.id);
@@ -661,7 +662,7 @@
   world.init = function (cv, labels) {
     canvas = cv; ctx = cv.getContext("2d"); labelsEl = labels;
     build();
-    player.x = 168; player.y = 9 * T + 6; player.dir = "down";
+    player.x = 184; player.y = 9 * T + 6; player.dir = "down";
     resize();
     window.addEventListener("resize", resize);
     canvas.addEventListener("pointerdown", onPointerDown);

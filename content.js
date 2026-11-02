@@ -49,7 +49,7 @@ FARM.data = {
     ],
     stats: [
       { icon: "cap",      label: "Studying",   value: "B.S. Mechanical & Biomedical Eng." },
-      { icon: "star",     label: "GPA",        value: "4.0 · President's List 2023–25" },
+      { icon: "star",     label: "GPA",        value: "4.0 · President's List 2023–26" },
       { icon: "calendar", label: "Graduating", value: "May 2027" },
       { icon: "wrench",   label: "Currently",  value: "Engineering Assistant @ CAVS" },
       { icon: "gear",     label: "Summer '26", value: "Design & Mfg. Intern @ Parker" },
@@ -63,15 +63,11 @@ FARM.data = {
       },
       {
         q: "A moment from Parker that stuck with you?",
-        a: "Everything in our plant was built in-house, from pack-out tables to complex test stands. One day I asked who made the test stand, and the answer was: \"We did. We're the engineers.\" That's when it really hit me. Later, during a kaizen, I redesigned a barcode-scanner holder whose buried magnet kept the scanner on 24/7. When another cell needed the same fix, nobody knew I'd already made one, and they were very surprised to find out it was me."
+        a: "Everything in our plant was built in-house, from pack-out tables to the machines that test every valve. One day I asked who had programmed and set up the machine that pressure-tests our valves, and the answer was: \"We did. We're the engineers.\" That's when it really hit me."
       },
       {
         q: "Why do you care so much about manufacturing?",
         a: "You can design anything in CAD, but manufacturing teaches you what's actually possible, affordable and practical. Knowing how to model a part is one thing. Designing it so it can be machined the simplest way, with the least material wasted, is what makes a great engineer."
-      },
-      {
-        q: "Tell me about a time something failed.",
-        a: "My bridge design looked great in FEA, but the 3D-printed version came out weak. The print layers ran parallel to the main stress instead of across it, and my simulation didn't account for infill or layer orientation. Lesson learned: a simulation is only as good as its assumptions."
       },
       {
         q: "Why do you tutor?",
@@ -264,10 +260,10 @@ FARM.data = {
       sections: [
         { h: "The problem", p: "Ventricular shunts treat hydrocephalus by draining excess cerebrospinal fluid (CSF) from the brain. They fail often: tissue is pulled into the inlet holes by suction and sticks where wall shear stress is low, slowly clogging the tube and sending patients back to surgery." },
         { h: "My approach", list: [
-          "Built catheter geometries in SolidWorks, varying lumen diameter, hole configuration and tip design.",
-          "Ran CFD with inlet/outlet pressure conditions to measure flow-rate distribution, velocity profiles, wall shear stress and pressure drop.",
-          "Checked structural behavior with FEA in Abaqus under physiological pressure loading.",
-          "Compared designs to find geometries that cut suction peaks at holes, spread flow evenly and raise wall shear enough to discourage adhesion."
+          "Designing and optimizing a ventricular shunt catheter in SolidWorks, reducing simulated flow stagnation zones by ~33% via refinement of lumen geometry, inlet hole configuration, and semi-open tip design, while accelerating design iteration cycles by ~30%.",
+          "Performing CFD simulations in SolidWorks Flow Simulation and ANSYS Fluent under physiologically relevant flow rates (laminar regime, low Reynolds number), improving velocity distribution uniformity by ~18% and minimizing recirculation zones linked to obstruction risk.",
+          "Applying FEA in Abaqus to evaluate structural response under physiological pressure loading, reducing peak stress concentrations by ~20% while maintaining geometric feasibility for manufacturing.",
+          "Comparing inlet-hole and tip geometries by flow-rate distribution, velocity profile, wall shear stress, and pressure drop to reduce suction peaks at the holes and raise wall shear enough to discourage the tissue adhesion that causes shunt obstruction."
         ] },
         { h: "Results so far", stats: [["~33%", "fewer simulated stagnation zones"], ["~18%", "more uniform velocity distribution"], ["~20%", "lower peak stress"], ["~30%", "faster design iterations"]] },
         { h: "The physics", formula: "Q = A·v     τ = μ·(du/dy)     Re = ρvD/μ", p: "Continuity, Navier–Stokes (solved by the CFD), wall shear stress and Reynolds number to confirm the flow stays laminar." }
@@ -276,17 +272,19 @@ FARM.data = {
     {
       id: "desk",
       title: "Desk Assistant",
-      subtitle: "A voice-controlled AI helper for my desk",
+      subtitle: "Personal side project · in progress",
+      year: "In progress",
+      role: "Personal side project, built for fun",
       art: "desk",
       tags: ["Electronics", "Python", "LLM", "Text-to-speech", "DFM"],
-      summary: "Ask it a question out loud and it answers back, while its screen shows stocks, weather, reminders and my calendar.",
+      summary: "A voice-controlled AI helper I'm building for my desk, just for fun. Ask it a question out loud and it answers back, while its screen shows stocks, weather, reminders and my calendar.",
       sections: [
         { h: "How it works", list: [
           "A microphone listens for my voice and sends the question to a hosted language model (Gemini, chosen because it's very affordable).",
           "The answer is converted to speech with a text-to-speech model and played through a speaker.",
           "A small screen shows stocks, weather, reminders and calendar info while it waits."
         ] },
-        { h: "What I did", p: "I wrote the backend code, integrated the electronics, and modeled the enclosure with design-for-manufacturing in mind so it can be replicated later." }
+        { h: "What I'm doing", p: "This is a hobby project I work on in my spare time, and it's still in progress. I'm writing the backend code, integrating the electronics, and modeling the enclosure with design-for-manufacturing in mind so it can be replicated later." }
       ]
     },
     {
@@ -307,10 +305,9 @@ FARM.data = {
       subtitle: "CAD + FEA small-scale truss bridge",
       image: "bridge.png",
       tags: ["SolidWorks", "FEA", "3D printing"],
-      summary: "Designed and tested a truss bridge, and learned the hard way about print orientation.",
+      summary: "A small-scale arch-truss bridge, designed in CAD and optimized with FEA.",
       sections: [
-        { h: "What I did", p: "Designed and tested a small-scale arch-truss bridge, optimizing load distribution and structural integrity with CAD and FEA.", images: [["bridge.png", "Final bridge drawing, SolidWorks"]] },
-        { h: "What I learned", p: "It performed great in FEA but the printed bridge came out weak: the layers ran parallel to the main stress, and FEA didn't model infill or layer direction. Now I always ask how a part will actually be made before trusting the simulation." }
+        { h: "What I did", p: "Designed and tested a small-scale arch-truss bridge, optimizing load distribution and structural integrity with CAD and FEA.", images: [["bridge.png", "Final bridge drawing, SolidWorks"]] }
       ]
     },
     {
@@ -367,8 +364,6 @@ FARM.data = {
     { id: "soar", title: "LGS-SOAR Scholar: Interdisciplinary Sciences", issuer: "Emory University · Laney Graduate School", date: "Jul 31, 2025",
       image: "lgscert.png", pdf: "LGS.pdf", badge: "lgs.png", ribbon: "green",
       note: "Research training in academic ethics, medical machine learning, neuroscience and biotechnology." },
-    { id: "gdt", title: "GD&T", issuer: "SolidProfessor", date: "", ribbon: "orange",
-      note: "Geometric dimensioning & tolerancing." },
     { id: "osha", title: "OSHA 10", issuer: "Occupational Safety & Health Administration", date: "", ribbon: "teal",
       note: "Hazard identification and workplace safety, because safety is part of design, not an afterthought." }
   ],
@@ -383,7 +378,7 @@ FARM.data = {
         { name: "Autodesk Inventor", level: 5, used: "Parker fixtures & schematics" },
         { name: "AutoCAD", level: 5 },
         { name: "Fusion 360 / CAM", level: 5, used: "ACE CNC program · AMS workshops" },
-        { name: "GD&T", level: 4, used: "SolidProfessor GD&T · AMS" }
+        { name: "GD&T", level: 4, used: "AMS workshops" }
       ] },
     { id: "sim", name: "The River", group: "Simulation & Analysis", color: "#8fd6ff",
       stars: [
@@ -429,19 +424,15 @@ FARM.data = {
      color: petal color. Edit freely! */
   hobbies: [
     { id: "lego", name: "LEGO builds", plant: "tulip", color: "#e8473a", center: "#ffd23f",
-      text: "Brick by brick. My manager at Parker and I talked LEGO sets (and board games) on almost every break." },
+      text: "Brick by brick. I love watching a pile of pieces turn into the finished set." },
     { id: "games", name: "Board games", plant: "daisy", color: "#ffffff", center: "#f2b33d",
       text: "Strategy, laughs and a little friendly rivalry. Ask me for a recommendation!" },
     { id: "print", name: "3D printing", plant: "fern", color: "#4fb06d", center: "#2f7a49",
-      text: "My Bambu Lab printer makes fixtures for work and little gifts for friends. A mentor once surprised me with holographic prints from her new build plate, and it instantly made my day." },
+      text: "My Bambu Lab printer makes fixtures for work and little gifts for friends." },
     { id: "tinker", name: "Tinkering", plant: "sun", color: "#ffcc33", center: "#7a4a25",
       text: "Weekend builds like my voice-controlled desk assistant. If it has a microcontroller, I want to open it up." },
     { id: "teach", name: "Teaching", plant: "lily", color: "#c9a7ff", center: "#fff1a8",
-      text: "I tutor Engineering Mechanics, Mechanics of Materials, Thermodynamics and Fluids. Watching Bernoulli's equation finally \"click\" for someone never gets old." },
-    { id: "nepal", name: "Home: Nepal", plant: "rhodo", color: "#e2335a", center: "#ffd0dc",
-      text: "Rhododendron is Nepal's national flower. Leaving home to study engineering was the biggest decision I've made, and it taught me to adapt, work hard and keep going." },
-    { id: "candy", name: "Candy tray", plant: "clover", color: "#ff8fc2", center: "#ffffff",
-      text: "There's always a candy tray on my desk. I once counted and found one piece missing, and it made my day. Take one!" }
+      text: "I tutor Engineering Mechanics, Mechanics of Materials, Thermodynamics and Fluids. Watching Bernoulli's equation finally \"click\" for someone never gets old." }
   ],
 
   /* ------------------------------------------------------------------ */
@@ -449,7 +440,7 @@ FARM.data = {
     school: "Mississippi State University",
     degree: "B.S. Mechanical & Biomedical Engineering",
     grad: "Expected May 2027",
-    details: ["Cumulative GPA 4.0 / 4.0", "President's List 2023, 2024, 2025"]
+    details: ["Cumulative GPA 4.0 / 4.0", "President's List 2023, 2024, 2025, 2026"]
   },
 
   leadership: [
