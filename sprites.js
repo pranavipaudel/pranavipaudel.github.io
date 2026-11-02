@@ -131,9 +131,12 @@
       } else if (ch === "r") {
         R(c, X, Y, T, T, S.road);
         for (let i = 0; i < 5; i++) R(c, X + ((rnd() * T) | 0), Y + ((rnd() * T) | 0), 1, 1, rnd() < 0.6 ? S.roadD : S.pathL);
-        const top = at(x, y - 1) !== "r";
-        R(c, X, Y + (top ? 5 : 10), T, 1, S.roadD);
-        if (top) R(c, X, Y + 6, T, 1, F.shade(S.road, 0.08));
+        const top = at(x, y - 1) !== "r", bot = at(x, y + 1) !== "r";
+        // deep wheel ruts + worn edges so the cart trail reads clearly
+        R(c, X, Y + (top ? 6 : 9), T, 2, S.roadD);
+        R(c, X, Y + (top ? 8 : 11), T, 1, F.shade(S.road, 0.12));
+        if (top) { R(c, X, Y, T, 1, S.roadD); R(c, X, Y + 1, T, 1, F.shade(S.road, -0.06)); }
+        if (bot) { R(c, X, Y + 15, T, 1, S.roadD); R(c, X, Y + 14, T, 1, F.shade(S.road, -0.06)); }
       } else if (ch === "s") {
         R(c, X, Y, T, T, S.soil);
         for (let r = 0; r < 4; r++) { R(c, X, Y + r * 4 + 2, T, 1, S.soilD); R(c, X, Y + r * 4, T, 1, S.soilL); }

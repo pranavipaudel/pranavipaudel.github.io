@@ -15,7 +15,7 @@
     const fill = (x0, y0, x1, y1, ch) => { for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) m[y][x] = ch; };
     fill(31, 2, 35, 6, "h");
     fill(30, 2, 30, 7, "c"); fill(30, 7, 35, 7, "c"); m[7][33] = "t";
-    fill(5, 8, 34, 9, "p");
+    fill(0, 8, 37, 9, "r");   // the cart trail runs right through the middle of the farm
     fill(10, 7, 10, 7, "p");
     fill(17, 10, 18, 21, "p");
     fill(4, 15, 16, 16, "p");
@@ -113,12 +113,12 @@
     blockRect(2, 11, 7, 14);
     hot(gh, "hobbies", 80, 15 * T + 11, "up");
 
-    // --- cart + pony, parked between the farmhouse and the barn (Experience)
+    // --- cart + pony at the west end of the trail, ready to roll (Experience)
     world.ponyFrames = A.pony();
-    const cart = add(A.cartSide(3, 0.3, false), 14 * T + 6, 8 * T - 2);
-    const pony = add(world.ponyFrames[0], 14 * T + 6 + 44, 8 * T - 2, { pony: true });
-    blockRect(14, 6, 19, 7);
-    const cartHot = hot(cart, "experience", 14 * T + 6 + 40, 8 * T + 10, "up");
+    const cart = add(A.cartSide(3, 0.3, false), 2 * T - 4, 9 * T + 8);
+    const pony = add(world.ponyFrames[0], 2 * T - 4 + 44, 9 * T + 8, { pony: true });
+    blockRect(1, 8, 6, 9);
+    const cartHot = hot(cart, "experience", 6 * T + 4, 10 * T + 6, "up");
     cartHot.extraRect = [pony.x, pony.y, pony.w, pony.h];
     // the old road still runs along the bottom of the farm, with its signpost
     add(A.signpost(S), 23 * T + 2, 22 * T - 1);
@@ -155,17 +155,17 @@
     blockRect(0, 24, W - 1, 25);
     blockRect(0, 22, 0, 23); blockRect(37, 22, 37, 23);
     // inner trees
-    [[56, 60, "tree", 0], [90, 108, "tree", 1], [270, 64, "tree", 2], [470, 168, "tree", 0], [520, 186, "pine", 1], [494, 232, "tree", 1], [548, 262, "tree", 2], [462, 300, "pine", 0], [560, 330, "tree", 0], [292, 300, "tree", 2], [232, 252, "pine", 1]].forEach(([x, y, k, v]) => tree(x, y, k, v));
+    [[56, 60, "tree", 0], [90, 108, "tree", 1], [270, 64, "tree", 2], [520, 186, "pine", 1], [494, 232, "tree", 1], [548, 262, "tree", 2], [462, 300, "pine", 0], [560, 330, "tree", 0], [292, 300, "tree", 2], [232, 252, "pine", 1]].forEach(([x, y, k, v]) => tree(x, y, k, v));
     // the big old oak by the pond
     tree(11 * T + 8, 21 * T - 2, "big", 0);
     blockRect(11, 19, 12, 20);
 
     // --- bushes, rocks, flowers, stumps
     const deco = [
-      ["bush", 104, 124], ["bush", 214, 122], ["bush", 290, 140], ["bush", 448, 240], ["bush", 140, 290], ["bush", 330, 290], ["bush", 520, 208],
+      ["bush", 214, 122], ["bush", 290, 118], ["bush", 448, 240], ["bush", 140, 290], ["bush", 330, 290], ["bush", 520, 208],
       ["rock", 250, 196], ["rock", 430, 284], ["rock", 200, 360], ["rock", 540, 100], ["rock", 60, 260],
-      ["stump", 330, 196], ["stump", 470, 128],
-      ["flowers", 60, 200], ["flowers", 240, 140], ["flowers", 256, 290], ["flowers", 420, 196], ["flowers", 520, 60], ["flowers", 500, 290], ["flowers", 160, 260], ["flowers", 586, 80], ["flowers", 300, 250], ["flowers", 236, 220]
+      ["stump", 330, 196], ["stump", 462, 116],
+      ["flowers", 60, 200], ["flowers", 240, 120], ["flowers", 256, 290], ["flowers", 420, 196], ["flowers", 520, 60], ["flowers", 500, 290], ["flowers", 160, 260], ["flowers", 586, 80], ["flowers", 300, 250], ["flowers", 236, 220]
     ];
     deco.forEach(([k, x, y], i) => {
       const spr = A[k](S, i);
@@ -186,7 +186,7 @@
     if (!critters.length) {
       const ch1 = A.chicken(false), ch2 = A.chicken(true);
       [[350, 158, ch1], [410, 170, ch2], [440, 152, ch1]].forEach(([x, y, fr]) => critters.push({ kind: "chicken", x, y, fr, dir: 1, tx: x, ty: y, wait: Math.random() * 3, peck: 0, area: [292, 146, 470, 184] }));
-      critters.push({ kind: "cat", x: 6 * T + 4, y: 7 * T + 12, fr: A.cat(), heart: 0 });
+      critters.push({ kind: "cat", x: 11 * T + 6, y: 7 * T + 12, fr: A.cat(), heart: 0 });
     }
     critters.forEach((c) => { if (c.kind === "butterfly") c.dead = true; });
     critters = critters.filter((c) => !c.dead);
@@ -622,7 +622,7 @@
       if (!h.el) return;
       const o = h.o;
       let ax = o.x + o.w / 2, ay = o.y + 2;
-      if (h.id === "experience") { ax = o.x + 24; ay = o.y + 4; }
+      if (h.id === "experience") { ax = o.x + 41; ay = o.y + 4; }
       if (h.id === "contact") ay = o.y - 2;
       h.el.style.transform = `translate(${Math.round((ax + ox) * scale)}px, ${Math.round((ay + oy) * scale)}px) translate(-50%, -100%)`;
       h.el.classList.toggle("near", nearId === h.id);
@@ -662,7 +662,7 @@
   world.init = function (cv, labels) {
     canvas = cv; ctx = cv.getContext("2d"); labelsEl = labels;
     build();
-    player.x = 184; player.y = 9 * T + 6; player.dir = "down";
+    player.x = 130; player.y = 9 * T + 6; player.dir = "down";
     resize();
     window.addEventListener("resize", resize);
     canvas.addEventListener("pointerdown", onPointerDown);
